@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haunted House Game</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        #output { margin-top: 20px; }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-    <h1>Haunted House Game</h1>
-    <p>Type a room code to move (e.g., C2, B1).</p>
-    <input type="text" id="command" placeholder="Enter command" />
-    <button onclick="processCommand()">Submit</button>
-    <div id="output"></div>
-    
+    <header>
+        <h1>Haunted House Game</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Game</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <p>Type a room code to move (e.g., C2, B1).</p>
+            <input type="text" id="command" placeholder="Enter command" />
+            <button onclick="processCommand()">Play your turn</button>
+            <div id="output"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Haunted House Game Research Project.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
