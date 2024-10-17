@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -27,10 +28,12 @@ nav ul li {
 nav a {
     color: #fff;
     text-decoration: none;
+    transition: 0.3s;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #ba0505;
+    transition: 0.3s;
 }
 
 main {
@@ -57,7 +60,8 @@ input[type="text"] {
 
 button {
     padding: 10px 15px;
-    background-color: #8B0000; /* Dark Red */
+    background-color: #8B0000;
+    transition: 0.3s;
     color: white;
     border: none;
     border-radius: 4px;
@@ -66,6 +70,7 @@ button {
 
 button:hover {
     background-color: #A52A2A; /* Lighter Red on hover */
+    transition: 0.3s;
 }
 
 /* Instructions Section */
