@@ -1,4 +1,4 @@
 # ghost-house-experiment
 
-Current bugs:
+## Current bugs:
 
