@@ -6,6 +6,8 @@ let doorPosition = null; // Initially, there is no door
 let hasKey = false;
 let gameOver = false;
 let layoutChanged = false; // Indicates if the layout has changed
+let ghostMovementComplete = false; // Indicates if the ghost has stopped moving
+let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in A3
 
 // Process player's command
 function processCommand() {
@@ -52,21 +54,35 @@ function checkRoom() {
     if (playerPosition === "C1" && hasKey && !layoutChanged) {
         // Layout changes once the player returns to C1 with the key
         layoutChanged = true;
-        doorPosition = "A3"; // Move the door to the farthest room
-        displayMessage("The layout of the house has changed. The door has moved to a new location.");
-    } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged) {
+        doorPosition = "A3"; // Move the door to A3
+        displayMessage("The layout of the house has changed. The door has moved to room A3.");
+    } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete) {
         // Move the ghost down by one room when the player reaches B1 or C2 after layout change
         if (ghostPosition === "A2") {
             ghostPosition = "A3";
+            ghostBlockedDoor = true; // The ghost blocks the door at A3
         } else if (ghostPosition === "B2") {
             ghostPosition = "B3";
         }
         displayMessage("The ghost has moved down from its previous location.");
+    } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && ghostBlockedDoor) {
+        // Move the ghost left by one room when the player reaches A2 (ghost blocks the door)
+        ghostPosition = "A2";
+        ghostBlockedDoor = false; // Update the flag since the ghost is now at A2
+        displayMessage("The ghost has moved one room to the left.");
+    } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
+        // Move the ghost two rooms to the right when the player moves from A2 to A1 or B2
+        if (ghostPosition === "A2") {
+            ghostPosition = "C2";
+        } else if (ghostPosition === "A3") {
+            ghostPosition = "C3";
+        }
+        displayMessage("The ghost has moved two rooms to the right.");
+        ghostMovementComplete = true; // The ghost will no longer move after this
     }
     // Check for nearby entities if no special event has occurred
     checkForNearbyEntities();
 }
-
 
 // Check if there are nearby entities (ghost or key)
 function checkForNearbyEntities() {
