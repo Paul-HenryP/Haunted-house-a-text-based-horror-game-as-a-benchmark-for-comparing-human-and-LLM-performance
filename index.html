@@ -18,8 +18,19 @@
     </header>
 
     <main>
+        <section id="instructions">
+            <h2>Game Instructions</h2>
+            <p>Welcome to the Haunted House Game! Your objective is to find the key and escape the haunted house while avoiding the ghost. Here's how to play:</p>
+            <ul>
+                <li>You start at room C1.</li>
+                <li>Type the code of the room you want to move to (e.g., C2, B1)</li>
+                <li>If you enter a room with a ghost, it's game over!</li>
+                <li>If you find the key, you can escape, but first go back to C1 with the key.</li>
+            </ul>
+        </section>
+
         <section>
-            <p>Type a room code to move (e.g., C2, B1).</p>
+            <p>Type a room code to move.</p>
             <input type="text" id="command" placeholder="Enter command" />
             <button onclick="processCommand()">Play your turn</button>
             <div id="output"></div>
