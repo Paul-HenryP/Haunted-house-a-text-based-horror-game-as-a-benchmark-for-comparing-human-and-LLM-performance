@@ -1,15 +1,15 @@
 // Game state
 let playerPosition = "C1";
 let keyPosition = "A1";
-let ghostPosition = "B2"; // Ghost starts at B2 during the key-finding phase
-let doorPosition = null; // Initially, there is no door
+let ghostPosition = "B2"; // Ghost starts at B2 during the key-finding phase.
+let doorPosition = null; // Initially, there is no door.
 let hasKey = false;
 let gameOver = false;
-let layoutChanged = false; // Indicates if the layout has changed
-let ghostMovementComplete = false; // Indicates if the ghost has stopped moving
-let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in A3
+let layoutChanged = false; // Indicates if the layout has changed.
+let ghostMovementComplete = false; // Indicates if the ghost has stopped moving.
+let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in A3.
 
-// Process player's command
+// Process player's command.
 function processCommand() {
     if (gameOver) return;
 
@@ -41,14 +41,27 @@ function checkRoom() {
     if (playerPosition === ghostPosition) {
         displayMessage("Game over - You encountered the ghost!");
         gameOver = true;
-        return; // Exit early to prevent further checks
+        return;
     }
 
     if (playerPosition === keyPosition) {
         displayMessage("You found the key!");
         hasKey = true;
-        keyPosition = null; // Remove the key from the room
-        return; // Exit early to prevent further checks
+        keyPosition = null; // Removes the key from the room
+        return;
+    }
+
+    // Check if the player has reached the door at A3
+    if (playerPosition === "A3") {
+        if (ghostBlockedDoor) {
+            displayMessage("You have reached the door at A3, but it was blocked by the ghost and it killed you!");
+            gameOver = true;
+        } else {
+            displayMessage("You have reached the door at A3! You can escape now.");
+            // Optionally set game state to indicate victory
+            gameOver = true; // Mark the game as over if needed
+        }
+        return;
     }
 
     if (playerPosition === "C1" && hasKey && !layoutChanged) {
@@ -66,10 +79,11 @@ function checkRoom() {
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
         // Move the ghost left by one room when the player reaches A2 (ghost blocks the door)
         ghostPosition = "A3";
-        ghostBlockedDoor = true; // Update the flag since the ghost is now at A3.
+        ghostBlockedDoor = true; // Updates the flag since the ghost is now at A3.
         displayMessage("The ghost has moved one room to the left. (Blocked the door)");
     } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && ghostBlockedDoor && !ghostMovementComplete) {
         // Move the ghost two rooms to the right when the player moves from A1 or B2
+        ghostBlockedDoor = false;// Updates the flag since the ghost is now not at A3.
         if (ghostPosition === "A2") {
             ghostPosition = "C2"; // Move the ghost from A2 to C2
         } else if (ghostPosition === "A3") {
@@ -78,7 +92,7 @@ function checkRoom() {
         displayMessage("The ghost has moved two rooms to the right. (Final move)");
         ghostMovementComplete = true; // The ghost will no longer move after this
     }
-    // Check for nearby entities if no special event has occurred
+    // Checks for nearby entities if no special event has occurred
     checkForNearbyEntities();
 }
 
@@ -92,9 +106,9 @@ function checkForNearbyEntities() {
         messages.push("There's a key nearby.");
     }
     if (messages.length > 0) {
-        displayMessage(messages.join(" "));
+        displayMessage(messages.join(" ") + " You are currently in: " + playerPosition);
     } else {
-        displayMessage("Nothing of interest here.");
+        displayMessage("Nothing of interest here. You are currently in: " + playerPosition);
     }
 }
 
