@@ -8,6 +8,7 @@ let gameOver = false;
 let layoutChanged = false; // Indicates if the layout has changed.
 let ghostMovementComplete = false; // Indicates if the ghost has stopped moving.
 let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in A3.
+let ghostAlreadyMovedDownOnce = false; //Ghost has already moved down once.
 
 // Process player's command.
 function processCommand() {
@@ -54,7 +55,7 @@ function checkRoom() {
     // Check if the player has reached the door at A3
     if (playerPosition === "A3") {
         if (ghostBlockedDoor) {
-            displayMessage("You have reached the door at A3, but it was blocked by the ghost and it killed you!");
+            displayMessage("You have reached the door at, but it was blocked by the ghost and it killed you!");
             gameOver = true;
         } else {
             displayMessage("You have reached the door at A3! You can escape now.");
@@ -69,10 +70,11 @@ function checkRoom() {
         layoutChanged = true;
         doorPosition = "A3"; // Move the door to A3
         displayMessage("The layout of the house has changed. The door has moved to room A3.");
-    } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete) {
+    } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
         // Move the ghost down by one room when the player reaches C2 or B1 after layout change
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
+            ghostAlreadyMovedDownOnce = true;
         } 
         displayMessage("The ghost has moved down from its previous location.");
 
