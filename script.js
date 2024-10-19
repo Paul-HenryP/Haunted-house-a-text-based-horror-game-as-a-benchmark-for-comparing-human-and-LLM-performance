@@ -1,3 +1,9 @@
+// Event listener for the "Enter" key.
+document.getElementById("command").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        processCommand(); // Calls the function when Enter is pressed.
+    }
+});
 // Game state
 let playerPosition = "C1";
 let keyPosition = "A1";
@@ -9,23 +15,47 @@ let layoutChanged = false; // Indicates if the layout has changed.
 let ghostMovementComplete = false; // Indicates if the ghost has stopped moving.
 let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in A3.
 let ghostAlreadyMovedDownOnce = false; //Ghost has already moved down once.
+let startTime = null; // Tracks the start time of the game.
+let endTime = null;   // Tracks the end time of the game.
+
 
 // Process player's command.
 function processCommand() {
     if (gameOver) return;
+
+    // Records the start time if the game is starting.
+    if (!startTime) {
+        startTime = new Date(); // Records the current time when the first move is made.
+    }
 
     const command = document.getElementById("command").value.trim().toUpperCase();
     movePlayer(command);
     document.getElementById("command").value = "";
 }
 
-// Move player to the specified room code
+function endGame(message) {
+    gameOver = true;
+
+    // Record the end time
+    endTime = new Date();
+
+    // Calculate the total time taken
+    const timeTaken = (endTime - startTime) / 1000; // Time in seconds
+
+    // Combine the game result and time taken into a single message
+    const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds.`;
+    displayMessage(finalMessage);
+}
+
+
+
+// Moves player to the specified room code.
 function movePlayer(targetRoom) {
     const validRooms = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
-    // Check if the target room is a valid room
+    // Checks if the target room is a valid room.
     if (validRooms.includes(targetRoom)) {
-        // Check if the target room is adjacent to the current room
+        // Checks if the target room is adjacent to the current room.
         if (isNearby(targetRoom)) {
             playerPosition = targetRoom;
             checkRoom();
@@ -37,41 +67,37 @@ function movePlayer(targetRoom) {
     }
 }
 
-// Check current room status
+// Checks current room status.
 function checkRoom() {
     if (playerPosition === ghostPosition) {
-        displayMessage("Game over - You encountered the ghost!");
-        gameOver = true;
+        endGame("Game over - You encountered the ghost!");
         return;
     }
 
     if (playerPosition === keyPosition) {
         displayMessage("You found the key!");
         hasKey = true;
-        keyPosition = null; // Removes the key from the room
+        keyPosition = null; // Removes the key from the room.
         return;
     }
 
-    // Check if the player has reached the door at A3
+    // Check if the player has reached the door at A3.
     if (playerPosition === "A3") {
         if (ghostBlockedDoor) {
-            displayMessage("You have reached the door at, but it was blocked by the ghost and it killed you!");
-            gameOver = true;
+            endGame("You have reached the door, but it was blocked by the ghost and it killed you!");
         } else {
-            displayMessage("You have reached the door at A3! You can escape now.");
-            // Optionally set game state to indicate victory
-            gameOver = true; // Mark the game as over if needed
+        endGame("Congratulations! You have reached the door at A3 and escaped the haunted house!");
         }
         return;
     }
 
     if (playerPosition === "C1" && hasKey && !layoutChanged) {
-        // Layout changes once the player returns to C1 with the key
+        // Layout changes once the player returns to C1 with the key.
         layoutChanged = true;
-        doorPosition = "A3"; // Move the door to A3
+        doorPosition = "A3"; // Moves the door to A3.
         displayMessage("The layout of the house has changed. The door has moved to room A3.");
     } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
-        // Move the ghost down by one room when the player reaches C2 or B1 after layout change
+        // Moves the ghost down by one room when the player reaches C2 or B1 after layout change.
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
             ghostAlreadyMovedDownOnce = true;
@@ -79,26 +105,26 @@ function checkRoom() {
         displayMessage("The ghost has moved down from its previous location.");
 
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
-        // Move the ghost left by one room when the player reaches A2 (ghost blocks the door)
+        // Move the ghost left by one room when the player reaches A2 (ghost blocks the door).
         ghostPosition = "A3";
         ghostBlockedDoor = true; // Updates the flag since the ghost is now at A3.
         displayMessage("The ghost has moved one room to the left. (Blocked the door)");
     } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && ghostBlockedDoor && !ghostMovementComplete) {
-        // Move the ghost two rooms to the right when the player moves from A1 or B2
+        // Move the ghost two rooms to the right when the player moves from A1 or B2.
         ghostBlockedDoor = false;// Updates the flag since the ghost is now not at A3.
         if (ghostPosition === "A2") {
-            ghostPosition = "C2"; // Move the ghost from A2 to C2
+            ghostPosition = "C2"; // Move the ghost from A2 to C2.
         } else if (ghostPosition === "A3") {
-            ghostPosition = "C3"; // Move the ghost from A3 to C3
+            ghostPosition = "C3"; // Move the ghost from A3 to C3.
         }
         displayMessage("The ghost has moved two rooms to the right. (Final move)");
-        ghostMovementComplete = true; // The ghost will no longer move after this
+        ghostMovementComplete = true; // The ghost will no longer move after this.
     }
-    // Checks for nearby entities if no special event has occurred
+    // Checks for nearby entities if no special event has occurred.
     checkForNearbyEntities();
 }
 
-// Check if there are nearby entities (ghost or key)
+// Checks if there are nearby entities (ghost or key).
 function checkForNearbyEntities() {
     let messages = [];
     if (isNearby(ghostPosition) && !layoutChanged) {
@@ -114,7 +140,7 @@ function checkForNearbyEntities() {
     }
 }
 
-// Check if a position is adjacent
+// Checks if a position is adjacent.
 function isNearby(position) {
     const adjacentRooms = {
         "A1": ["A2", "B1"], "B1": ["A1", "B2", "C1"], "C1": ["B1", "C2"],
@@ -124,8 +150,21 @@ function isNearby(position) {
     return position && adjacentRooms[playerPosition].includes(position);
 }
 
-// Display a message
+// Displays the messages.
 function displayMessage(msg) {
     const output = document.getElementById("output");
-    output.innerHTML = "<p>" + msg + "</p>" + output.innerHTML;
+
+    // Clear the existing highlight for older messages
+    Array.from(output.children).forEach(child => {
+        child.classList.remove("latest-message");
+    });
+
+    // Create a new message element and add the latest-message class
+    const newMessage = document.createElement("p");
+    newMessage.innerHTML = msg;
+    newMessage.classList.add("latest-message");
+
+    // Add the new message to the top of the output
+    output.prepend(newMessage);
 }
+
