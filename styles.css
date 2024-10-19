@@ -1,18 +1,24 @@
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #0D0D0D;
+    background-image: url('https://www.transparenttextures.com/patterns/foggy.jpg'); /* Foggy background texture */
+    background-size: cover;
+    color: #E0E0E0; 
     margin: 0;
     padding: 20px;
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
 header {
     background-color: #222;
     color: #fff;
-    padding: 10px 20px;
+    padding: 20px;
     text-align: center;
     border-radius: 4px;
+    font-family: 'Creepster', cursive; 
 }
 
 nav ul {
@@ -26,61 +32,100 @@ nav ul li {
 }
 
 nav a {
-    color: #fff;
+    color: #E0E0E0;
     text-decoration: none;
     transition: 0.3s;
 }
 
 nav a:hover {
-    color: #ba0505;
+    color: #D4AF37; 
     transition: 0.3s;
 }
 
 main {
     margin: 20px 0;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(20, 20, 20, 0.8);
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9em;
+/* Styles for the latest message with a haunted house theme */
+.latest-message {
+    color: #40E0D0;
+    background-color: rgba(50, 50, 50, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow for a ghostly effect */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Input and Button Styles */
 input[type="text"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 4px;
     width: 200px;
+    background-color: #333;
+    color: #E0E0E0;
 }
 
 button {
     padding: 10px 15px;
-    background-color: #8B0000;
-    transition: 0.3s;
+    margin: 16px;
+    background-color: #5A189A;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
-    background-color: #A52A2A; /* Lighter Red on hover */
-    transition: 0.3s;
+    background-color: #9D4EDD; 
+    transition: background-color 0.3s;
 }
 
 /* Instructions Section */
 #instructions {
     margin-top: 20px;
-    background-color: #e9ecef;
+    background-color: rgba(34, 34, 34, 0.8);
     padding: 15px;
     border-radius: 8px;
+    color: #E0E0E0;
 }
 
 #instructions h2 {
     margin-top: 0;
+    font-family: 'Creepster', cursive; 
+    color: #D4AF37; 
+}
+
+/* Animation for ghostly appearance */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #E0E0E0;
+}
+
+/* Spooky Text Flicker Animation */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+    70% { opacity: 0.7; }
+    90% { opacity: 0.3; }
+}
+
+/* Apply flicker animation to headings for extra effect */
+#instructions h2 {
+    animation: flicker 5s infinite alternate;
 }
