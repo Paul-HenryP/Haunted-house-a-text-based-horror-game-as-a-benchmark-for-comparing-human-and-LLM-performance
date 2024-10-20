@@ -12,10 +12,13 @@ Every room has a unique code. The codes are marked as follows: the rows are indi
 numbers from 1-3, where the top row corresponds with the number 1, the middle row with the number 2, and the bottom row with the number 3. The columns are marked by letters A-B-C, where the first column from the left is marked by the letter A, the middle B, and the right one C. You will have to tell the code of the room that you want to move to. Each time you enter a new room, you might get a message, which you must keep in mind. The following messages can be displayed when you enter a new room:
 
 M1 “There’s a ghost nearby” – one of the doors from this room leads to the ghost.
+
 M2 “There’s a ghost and a key nearby” – you get this message when one of the doors from the room that you are in leads to the key and another one to the ghost. The key and the ghost are never in the same room. Keep in mind, you only get this message when both the key and the ghost are nearby.
 
 M3 “You found the key” – this means you found the key.
+
 M4 “Game over” – you went into the room with the ghost.
+
 M5 Other – throughout the game, you can get other messages that you need to keep in mind.
 
 ## Rules
