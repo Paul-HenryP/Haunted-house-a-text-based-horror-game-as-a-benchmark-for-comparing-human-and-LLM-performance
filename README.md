@@ -4,7 +4,11 @@ The "Haunted House" task is designed as a text-based game where players navigate
 
 ## In depth explanation of the game:
 
-Objective: (1) Find the key and get out of the house (2) avoid the room with the ghost. There’s only one ghost in the house and it doesn’t move unless described otherwise.
+Objectives: 
+
+(1) Find the key and get out of the house.
+
+(2) avoid the room with the ghost. There’s only one ghost in the house and it doesn’t move unless described otherwise.
 
 The layout of the house is a grid composed of 9 rooms in 3 rows and 3 columns. You start from the room that is in the first row and the third column. The door outside of the house is in your starting room.
 
