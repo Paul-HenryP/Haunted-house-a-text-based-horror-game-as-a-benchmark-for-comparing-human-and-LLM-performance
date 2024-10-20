@@ -32,6 +32,6 @@ M5 Other – throughout the game, you can get other messages that you need to ke
 3. The ghost and the key are never in the same room.
 
 
-### Current bugs:
+## Current bugs:
 
 -  none
