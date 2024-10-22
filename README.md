@@ -1,4 +1,5 @@
-# Spatial Navigation Task - The Haunted House
+# Haunted house – a text-based horror game as a benchmark for comparing human and LLM performance in model-based reasoning
+
 
 The "Haunted House" task is designed as a text-based game where players navigate a grid-like map representing the rooms of a haunted house. The players must move from the starting point (C1) room to room using simple commands (e.g., C2 or B1). The goal is to find an escape route while avoiding the ghost, which can end the game if encountered. The game collects data locally such as final time taken and number of moves to complete the task.
 
