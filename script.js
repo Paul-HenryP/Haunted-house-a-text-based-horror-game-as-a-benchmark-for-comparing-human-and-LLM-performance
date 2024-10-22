@@ -4,6 +4,13 @@ document.getElementById("command").addEventListener("keydown", function(event) {
         processCommand(); // Calls the function when Enter is pressed.
     }
 });
+
+// Initializes the leaderboard display when the page loads.
+window.onload = function() {
+    updateLeaderboardDisplay();
+};
+
+
 // Game state
 let playerPosition = "C1";
 let keyPosition = "A1";
@@ -19,7 +26,7 @@ let startTime = null; // Tracks the start time of the game.
 let endTime = null;   // Tracks the end time of the game.
 
 
-// Process player's command.
+// Processes player's commands.
 function processCommand() {
     if (gameOver) return;
 
@@ -36,15 +43,74 @@ function processCommand() {
 function endGame(message) {
     gameOver = true;
 
-    // Record the end time
+    // Records the end time.
     endTime = new Date();
 
-    // Calculate the total time taken
-    const timeTaken = (endTime - startTime) / 1000; // Time in seconds
+    // Calculates the total time taken.
+    const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
 
-    // Combine the game result and time taken into a single message
+    // Combines the game result and time taken into a single message.
     const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds.`;
-    displayMessage(finalMessage);
+
+    // Check if the game was won or lost.
+    const isSuccess = message.includes("escaped the haunted house");
+
+    // Display the final message with the success-message class if the game was won.
+    displayMessage(finalMessage, isSuccess ? "success-message" : null);
+
+    // Save the score to the leaderboard only if the player escaped successfully.
+    if (isSuccess) {
+        saveScore(timeTaken);
+        updateLeaderboardDisplay();
+    }
+}
+
+
+
+// Saves the score to the leaderboard.
+function saveScore(timeTaken) {
+    // Get the existing leaderboard from localStorage, or start with an empty array
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    // Format the date in European style (DD.MM.YYYY HH:MM)
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = currentDate.getFullYear();
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const formattedDate = `${day}.${month}.${year} ${hours}:${minutes}`;
+
+    // Adds the new score to the leaderboard.
+    leaderboard.push({ time: timeTaken.toFixed(2), date: formattedDate });
+
+    // Sorts the leaderboard by time in ascending order (fastest times first).
+    leaderboard.sort((a, b) => a.time - b.time);
+
+    // Keep sonly the top 5 scores.
+    leaderboard = leaderboard.slice(0, 5);
+
+    // Saves the updated leaderboard back to localStorage.
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+// Displays the leaderboard.
+function updateLeaderboardDisplay() {
+    // Gets the leaderboard data from localStorage
+    const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    // Gets the leaderboard element
+    const leaderboardElement = document.getElementById("leaderboard");
+
+    // Clears the existing leaderboard display
+    leaderboardElement.innerHTML = "<h2>Leaderboard</h2>";
+
+    // Adds each score to the leaderboard display
+    leaderboard.forEach((entry, index) => {
+        const scoreItem = document.createElement("p");
+        scoreItem.textContent = `${index + 1}. Time: ${entry.time} seconds on ${entry.date}`;
+        leaderboardElement.appendChild(scoreItem);
+    });
 }
 
 
@@ -69,25 +135,28 @@ function movePlayer(targetRoom) {
 
 // Checks current room status.
 function checkRoom() {
+    let message = "";
+
     if (playerPosition === ghostPosition) {
         endGame("Game over - You encountered the ghost!");
         return;
     }
 
     if (playerPosition === keyPosition) {
-        displayMessage("You found the key!");
+        message += "You found the key! ";
         hasKey = true;
         keyPosition = null; // Removes the key from the room.
-        return;
     }
 
-    // Check if the player has reached the door at A3.
     if (playerPosition === "A3") {
         if (ghostBlockedDoor) {
             endGame("You have reached the door, but it was blocked by the ghost and it killed you!");
+        } else if (!layoutChanged) {
+            message += "Nothing of interest here.";
         } else {
-        endGame("Congratulations! You have reached the door at A3 and escaped the haunted house!");
+            endGame("Congratulations! You have reached the door at A3 and escaped the haunted house!");
         }
+        displayMessage(message);
         return;
     }
 
@@ -95,50 +164,52 @@ function checkRoom() {
         // Layout changes once the player returns to C1 with the key.
         layoutChanged = true;
         doorPosition = "A3"; // Moves the door to A3.
-        displayMessage("The layout of the house has changed. The door has moved to room A3.");
+        message += "The layout of the house has changed. The door has moved to the room that is of maximum distance from your current location. ";
     } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
         // Moves the ghost down by one room when the player reaches C2 or B1 after layout change.
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
             ghostAlreadyMovedDownOnce = true;
-        } 
-        displayMessage("The ghost has moved down from its previous location.");
-
+            message += "The ghost has moved down from its previous location.";
+        }
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
-        // Move the ghost left by one room when the player reaches A2 (ghost blocks the door).
+        // Moves the ghost left by one room when the player reaches A2 (ghost blocks the door).
         ghostPosition = "A3";
         ghostBlockedDoor = true; // Updates the flag since the ghost is now at A3.
-        displayMessage("The ghost has moved one room to the left. (Blocked the door)");
+        message += "The ghost has moved one room to the left.";
     } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && ghostBlockedDoor && !ghostMovementComplete) {
         // Move the ghost two rooms to the right when the player moves from A1 or B2.
-        ghostBlockedDoor = false;// Updates the flag since the ghost is now not at A3.
+        ghostBlockedDoor = false; // Updates the flag since the ghost is now not at A3.
         if (ghostPosition === "A2") {
             ghostPosition = "C2"; // Move the ghost from A2 to C2.
         } else if (ghostPosition === "A3") {
             ghostPosition = "C3"; // Move the ghost from A3 to C3.
         }
-        displayMessage("The ghost has moved two rooms to the right. (Final move)");
+        message += "The ghost has moved two rooms to the right. ";
         ghostMovementComplete = true; // The ghost will no longer move after this.
     }
+
     // Checks for nearby entities if no special event has occurred.
-    checkForNearbyEntities();
+    checkForNearbyEntities(message);
 }
 
-// Checks if there are nearby entities (ghost or key).
-function checkForNearbyEntities() {
+// Modified checkForNearbyEntities to accept a message parameter.
+function checkForNearbyEntities(existingMessage) {
     let messages = [];
     if (isNearby(ghostPosition) && !layoutChanged) {
-        messages.push("There's a ghost nearby.");
+        messages.push("There's a ghost nearby. ");
     }
     if (isNearby(keyPosition) && !hasKey) {
-        messages.push("There's a key nearby.");
+        messages.push("There's a key nearby. ");
     }
-    if (messages.length > 0) {
-        displayMessage(messages.join(" ") + " You are currently in: " + playerPosition);
+    let combinedMessage = existingMessage + " " + messages.join(" ").trim();
+    if (combinedMessage.trim()) {
+        displayMessage(combinedMessage);
     } else {
-        displayMessage("Nothing of interest here. You are currently in: " + playerPosition);
+        displayMessage("Nothing of interest here. ");
     }
 }
+
 
 // Checks if a position is adjacent.
 function isNearby(position) {
@@ -151,20 +222,29 @@ function isNearby(position) {
 }
 
 // Displays the messages.
-function displayMessage(msg) {
+// Displays the messages with an optional additional class.
+// Displays the messages with an optional additional class.
+function displayMessage(msg, extraClass = null) {
+    if (!msg || !msg.trim()) return; // Do nothing if the message is empty or just whitespace.
+
     const output = document.getElementById("output");
 
-    // Clear the existing highlight for older messages
+    // Clear the existing highlight for older messages.
     Array.from(output.children).forEach(child => {
         child.classList.remove("latest-message");
     });
 
-    // Create a new message element and add the latest-message class
+    // Create a new message element and add the latest-message class.
     const newMessage = document.createElement("p");
     newMessage.innerHTML = msg;
     newMessage.classList.add("latest-message");
 
-    // Add the new message to the top of the output
+    // If an extra class is provided (e.g., "success-message"), add it.
+    if (extraClass) {
+        newMessage.classList.add(extraClass);
+    }
+
+    // Add the new message to the top of the output.
     output.prepend(newMessage);
 }
 
