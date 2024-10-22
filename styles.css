@@ -103,11 +103,27 @@ button:hover {
     color: #D4AF37; 
 }
 
-/* Animation for ghostly appearance */
+/* Animation */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* Styles for the successful endgame message */
+.success-message {
+    color: #ffffff !important;
+    background-color: rgba(50, 50, 50, 0.8);
+    padding: 15px !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px !important;
+    font-size: 1em;
+    text-align: center !important;
+    /* box-shadow: 0 0 20px #15461373 !important;*/
+
+}
+
+
+
 
 /* Footer Styles */
 footer {
@@ -129,3 +145,13 @@ footer {
 #instructions h2 {
     animation: flicker 5s infinite alternate;
 }
+
+/* Add space between the game messages and leaderboard */
+#leaderboard {
+    margin-top: 30px; /* Adjust the value as needed to create the desired spacing */
+    background-color: rgba(34, 34, 34, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    color: #E0E0E0;
+}
+
