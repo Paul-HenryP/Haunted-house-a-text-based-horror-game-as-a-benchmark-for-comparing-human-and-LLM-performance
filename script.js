@@ -24,9 +24,23 @@ let ghostBlockedDoor = false; // Indicates if the ghost has blocked the door in 
 let ghostAlreadyMovedDownOnce = false; //Ghost has already moved down once.
 let startTime = null; // Tracks the start time of the game.
 let endTime = null;   // Tracks the end time of the game.
+let stepCount = 0; // Tracks the number of steps taken by the player.
 
 
-// Processes player's commands.
+// Mapping of rooms and their directional neighbors
+const roomMap = {
+    "A1": { up: null, down: "A2", left: null, right: "B1" },
+    "A2": { up: "A1", down: "A3", left: null, right: "B2" },
+    "A3": { up: "A2", down: null, left: null, right: "B3" },
+    "B1": { up: null, down: "B2", left: "A1", right: "C1" },
+    "B2": { up: "B1", down: "B3", left: "A2", right: "C2" },
+    "B3": { up: "B2", down: null, left: "A3", right: "C3" },
+    "C1": { up: null, down: "C2", left: "B1", right: null },
+    "C2": { up: "C1", down: "C3", left: "B2", right: null },
+    "C3": { up: "C2", down: null, left: "B3", right: null }
+};
+
+// Processes player's command.
 function processCommand() {
     if (gameOver) return;
 
@@ -35,9 +49,26 @@ function processCommand() {
         startTime = new Date(); // Records the current time when the first move is made.
     }
 
-    const command = document.getElementById("command").value.trim().toUpperCase();
-    movePlayer(command);
+    const command = document.getElementById("command").value.trim().toLowerCase();
+    movePlayerByDirection(command);
     document.getElementById("command").value = "";
+}
+
+// Moves the player based on the direction.
+function movePlayerByDirection(direction) {
+    if (!["up", "down", "left", "right"].includes(direction)) {
+        displayMessage("Invalid direction. Please enter 'up', 'down', 'left', or 'right'.");
+        return;
+    }
+
+    const newRoom = roomMap[playerPosition][direction];
+    if (newRoom) {
+        playerPosition = newRoom;
+        stepCount++; // Increments step count.
+        checkRoom();
+    } else {
+        displayMessage("You can't move " + direction + " from here.");
+    }
 }
 
 function endGame(message) {
@@ -49,8 +80,8 @@ function endGame(message) {
     // Calculates the total time taken.
     const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
 
-    // Combines the game result and time taken into a single message.
-    const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds.`;
+    // Combines the game result, time taken, and step count into a single message.
+    const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds. Steps taken: ${stepCount}.`;
 
     // Check if the game was won or lost.
     const isSuccess = message.includes("escaped the haunted house");
@@ -60,7 +91,7 @@ function endGame(message) {
 
     // Save the score to the leaderboard only if the player escaped successfully.
     if (isSuccess) {
-        saveScore(timeTaken);
+        saveScore(timeTaken, stepCount);
         updateLeaderboardDisplay();
     }
 }
@@ -68,7 +99,7 @@ function endGame(message) {
 
 
 // Saves the score to the leaderboard.
-function saveScore(timeTaken) {
+function saveScore(timeTaken, steps) {
     // Get the existing leaderboard from localStorage, or start with an empty array
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
@@ -82,7 +113,7 @@ function saveScore(timeTaken) {
     const formattedDate = `${day}.${month}.${year} ${hours}:${minutes}`;
 
     // Adds the new score to the leaderboard.
-    leaderboard.push({ time: timeTaken.toFixed(2), date: formattedDate });
+    leaderboard.push({ time: timeTaken.toFixed(2), steps: steps, date: formattedDate });
 
     // Sorts the leaderboard by time in ascending order (fastest times first).
     leaderboard.sort((a, b) => a.time - b.time);
@@ -93,6 +124,7 @@ function saveScore(timeTaken) {
     // Saves the updated leaderboard back to localStorage.
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 }
+
 
 // Displays the leaderboard.
 function updateLeaderboardDisplay() {
@@ -108,7 +140,7 @@ function updateLeaderboardDisplay() {
     // Adds each score to the leaderboard display
     leaderboard.forEach((entry, index) => {
         const scoreItem = document.createElement("p");
-        scoreItem.textContent = `${index + 1}. Time: ${entry.time} seconds on ${entry.date}`;
+        scoreItem.textContent = `${index + 1}. Time: ${entry.time} seconds, Steps: ${entry.steps}, Date: ${entry.date}`;
         leaderboardElement.appendChild(scoreItem);
     });
 }
@@ -124,6 +156,7 @@ function movePlayer(targetRoom) {
         // Checks if the target room is adjacent to the current room.
         if (isNearby(targetRoom)) {
             playerPosition = targetRoom;
+            stepCount++; // Increment.
             checkRoom();
         } else {
             displayMessage("You can't move directly to " + targetRoom + ". It is not adjacent to your current position.");
@@ -170,7 +203,7 @@ function checkRoom() {
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
             ghostAlreadyMovedDownOnce = true;
-            message += "The ghost has moved down from its previous location.";
+            message += "The ghost has moved down one room from its previous location.";
         }
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
         // Moves the ghost left by one room when the player reaches A2 (ghost blocks the door).
@@ -229,22 +262,22 @@ function displayMessage(msg, extraClass = null) {
 
     const output = document.getElementById("output");
 
-    // Clear the existing highlight for older messages.
+    // Clears the existing highlight for older messages.
     Array.from(output.children).forEach(child => {
         child.classList.remove("latest-message");
     });
 
-    // Create a new message element and add the latest-message class.
+    // Creates a new message element and add the latest-message class.
     const newMessage = document.createElement("p");
     newMessage.innerHTML = msg;
     newMessage.classList.add("latest-message");
 
-    // If an extra class is provided (e.g., "success-message"), add it.
+    // If an extra class is provided (e.g., "success-message"), adds it.
     if (extraClass) {
         newMessage.classList.add(extraClass);
     }
 
-    // Add the new message to the top of the output.
+    // Adds the new message to the top of the output.
     output.prepend(newMessage);
 }
 
