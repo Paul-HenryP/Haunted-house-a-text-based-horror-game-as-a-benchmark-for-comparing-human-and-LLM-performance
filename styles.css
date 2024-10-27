@@ -141,7 +141,7 @@ footer {
     90% { opacity: 0.3; }
 }
 
-/* Apply flicker animation to headings for extra effect */
+/* flicker animation to headings */
 #instructions h2 {
     animation: flicker 5s infinite alternate;
 }
