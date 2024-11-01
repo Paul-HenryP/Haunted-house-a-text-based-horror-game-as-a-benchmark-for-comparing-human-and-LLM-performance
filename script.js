@@ -11,7 +11,7 @@ window.onload = function() {
 };
 
 
-// Game state
+// Game state.
 let playerPosition = "C1";
 let keyPosition = "A1";
 let ghostPosition = "B2"; // Ghost starts at B2 during the key-finding phase.
@@ -83,13 +83,13 @@ function endGame(message) {
     // Combines the game result, time taken, and step count into a single message.
     const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds. Steps taken: ${stepCount}.`;
 
-    // Check if the game was won or lost.
+    // Checks if the game was won or lost.
     const isSuccess = message.includes("escaped the haunted house");
 
-    // Display the final message with the success-message class if the game was won.
+    // Displays the final message with the success-message class if the game was won.
     displayMessage(finalMessage, isSuccess ? "success-message" : null);
 
-    // Save the score to the leaderboard only if the player escaped successfully.
+    // Saves the score to the leaderboard only if the player escaped successfully.
     if (isSuccess) {
         saveScore(timeTaken, stepCount);
         updateLeaderboardDisplay();
@@ -100,13 +100,13 @@ function endGame(message) {
 
 // Saves the score to the leaderboard.
 function saveScore(timeTaken, steps) {
-    // Get the existing leaderboard from localStorage, or start with an empty array
+    // Get the existing leaderboard from localStorage, or start with an empty array.
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-    // Format the date in European style (DD.MM.YYYY HH:MM)
+    // Formats the date in European style (DD.MM.YYYY HH:MM).
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
     const year = currentDate.getFullYear();
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
@@ -254,8 +254,6 @@ function isNearby(position) {
     return position && adjacentRooms[playerPosition].includes(position);
 }
 
-// Displays the messages.
-// Displays the messages with an optional additional class.
 // Displays the messages with an optional additional class.
 function displayMessage(msg, extraClass = null) {
     if (!msg || !msg.trim()) return; // Do nothing if the message is empty or just whitespace.
@@ -280,4 +278,3 @@ function displayMessage(msg, extraClass = null) {
     // Adds the new message to the top of the output.
     output.prepend(newMessage);
 }
-
