@@ -2,7 +2,6 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #0D0D0D;
-    background-image: url('https://www.transparenttextures.com/patterns/foggy.jpg'); /* Foggy background texture */
     background-size: cover;
     color: #E0E0E0; 
     margin: 0;
@@ -18,7 +17,9 @@ header {
     padding: 20px;
     text-align: center;
     border-radius: 4px;
-    font-family: 'Creepster', cursive; 
+    font-family: 'Creepster', cursive;
+
+    display: none;/* temp */
 }
 
 nav ul {
@@ -50,14 +51,13 @@ main {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
 
-/* Styles for the latest message with a haunted house theme */
 .latest-message {
     color: #40E0D0;
     background-color: rgba(50, 50, 50, 0.8);
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow for a ghostly effect */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -118,12 +118,8 @@ button:hover {
     margin-bottom: 10px !important;
     font-size: 1em;
     text-align: center !important;
-    /* box-shadow: 0 0 20px #15461373 !important;*/
 
 }
-
-
-
 
 /* Footer Styles */
 footer {
@@ -133,7 +129,7 @@ footer {
     color: #E0E0E0;
 }
 
-/* Spooky Text Flicker Animation */
+/* Spooky Flicker Animation */
 @keyframes flicker {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
@@ -141,17 +137,16 @@ footer {
     90% { opacity: 0.3; }
 }
 
-/* flicker animation to headings */
 #instructions h2 {
     animation: flicker 5s infinite alternate;
 }
 
-/* Add space between the game messages and leaderboard */
 #leaderboard {
-    margin-top: 30px; /* Adjust the value as needed to create the desired spacing */
+    margin-top: 30px;
     background-color: rgba(34, 34, 34, 0.8);
     padding: 15px;
     border-radius: 8px;
     color: #E0E0E0;
-}
 
+    display: none;/* temp */
+}
