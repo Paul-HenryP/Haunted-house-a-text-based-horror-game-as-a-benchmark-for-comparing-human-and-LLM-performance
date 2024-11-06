@@ -17,7 +17,16 @@
         </nav>
     </header>
 
-    <main>
+    <!-- Modal for language selection -->
+        <div class="modal" id="languageModal">
+            <h2>Select Your Language</h2>
+            <div class="button-group">
+                <button class="estonian-btn" onclick="redirectEstonian()">Estonian</button>
+                <button class="english-btn" onclick="closeModal()">English</button>
+            </div>
+        </div>
+
+    <main id="main">
         <section id="instructions">
             <h2>Game Instructions</h2>
             <p>Welcome to the Haunted House Game! This game is a part of a study that compares artificial and natural intelligence. We aim to measure model-based reasoning in different LLMs. <br><br>Your objective is to find the key and escape the haunted house while avoiding the ghost. Here's how to play:</p>
@@ -41,7 +50,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer id="footer">
         <p>&copy; 2024 Haunted House Game Research Project</p>
     </footer>
 
