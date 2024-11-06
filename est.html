@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kummitusmaja Mängu Uuring</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Kummitusmaja Mängu Uuring</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Mäng</a></li>
+                <li><a href="blog.html">Blogi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section id="instructions">
+            <h2>Juhend:</h2>
+            <p>Welcome to the Haunted House Game! This game is a part of a study that compares artificial and natural intelligence. We aim to measure model-based reasoning in different LLMs. <br><br>Your objective is to find the key and escape the haunted house while avoiding the ghost. Here's how to play:</p>
+            <ul>
+                <li>The house is a 3x3 grid. You start some room.</li>
+                <li>Type the direction of the room you want to move to (up, down, left, or right)</li>
+                <li>If you enter a room with a ghost, it's game over!</li>
+                <li>If you find the key, you can escape, but first go back to the start with the key.</li>
+            </ul>
+        </section>
+
+        <section>
+            <p>Type a direction to move.</p>
+            <input type="text" id="command" placeholder="Enter command" />
+            <button onclick="processCommand()">Play your turn</button>
+            <div id="output"></div>
+        </section>
+
+        <section id="leaderboard">
+            <h2>Leaderboard</h2>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <p>&copy; 2024 Haunted House Game Research Project</p>
+    </footer>
+
+    <script src="estScript.js"></script>
+</body>
+</html>
