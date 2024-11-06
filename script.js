@@ -5,6 +5,12 @@ document.getElementById("command").addEventListener("keydown", function(event) {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Hide main content initially
+    document.getElementById('main').style.display = 'none';
+    document.getElementById('footer').style.display = 'none';
+});
+
 // Initializes the leaderboard display when the page loads.
 window.onload = function() {
     updateLeaderboardDisplay();
@@ -277,4 +283,15 @@ function displayMessage(msg, extraClass = null) {
 
     // Adds the new message to the top of the output.
     output.prepend(newMessage);
+}
+
+//languageModal
+function redirectEstonian() {
+    window.location.href = "est.html"; // Replace with the Estonian version URL
+}
+
+function closeModal() {
+    document.getElementById('languageModal').style.display = 'none';
+    document.getElementById('main').style.display = 'block'; // Shows stuff.
+    document.getElementById('footer').style.display = 'block';
 }
