@@ -7,9 +7,29 @@ body {
     margin: 0;
     padding: 20px;
 }
-
-
 @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+/* Modal box styling */
+    .modal {
+      background: #0D0D0D;
+      padding: 20px 30px;
+      margin-top: 5em;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 300px;
+
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .modal h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
 
 header {
     background-color: #222;
@@ -44,6 +64,7 @@ nav a:hover {
 }
 
 main {
+
     margin: 20px 0;
     padding: 20px;
     background-color: rgba(20, 20, 20, 0.8);
