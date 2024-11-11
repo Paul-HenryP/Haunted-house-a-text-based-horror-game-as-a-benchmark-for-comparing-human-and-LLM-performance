@@ -37,15 +37,15 @@ let stepCount = 0; // Tracks the number of steps taken by the player.
 
 // Mapping of rooms and their directional neighbors
 const roomMap = {
-    "A1": { up: null, down: "A2", left: null, right: "B1" },
-    "A2": { up: "A1", down: "A3", left: null, right: "B2" },
-    "A3": { up: "A2", down: null, left: null, right: "B3" },
-    "B1": { up: null, down: "B2", left: "A1", right: "C1" },
-    "B2": { up: "B1", down: "B3", left: "A2", right: "C2" },
-    "B3": { up: "B2", down: null, left: "A3", right: "C3" },
-    "C1": { up: null, down: "C2", left: "B1", right: null },
-    "C2": { up: "C1", down: "C3", left: "B2", right: null },
-    "C3": { up: "C2", down: null, left: "B3", right: null }
+    "A1": { üles: null, alla: "A2", vasak: null, parem: "B1" },
+    "A2": { üles: "A1", alla: "A3", vasak: null, parem: "B2" },
+    "A3": { üles: "A2", alla: null, vasak: null, parem: "B3" },
+    "B1": { üles: null, alla: "B2", vasak: "A1", parem: "C1" },
+    "B2": { üles: "B1", alla: "B3", vasak: "A2", parem: "C2" },
+    "B3": { üles: "B2", alla: null, vasak: "A3", parem: "C3" },
+    "C1": { üles: null, alla: "C2", vasak: "B1", parem: null },
+    "C2": { üles: "C1", alla: "C3", vasak: "B2", parem: null },
+    "C3": { üles: "C2", alla: null, vasak: "B3", parem: null }
 };
 
 // Processes player's command.
@@ -64,7 +64,7 @@ function processCommand() {
 
 // Moves the player based on the direction.
 function movePlayerByDirection(direction) {
-    if (!["up", "down", "left", "right"].includes(direction)) {
+    if (!["üles", "alla", "vasak", "parem"].includes(direction)) {
         displayMessage("Vale käsk. Palun sisesta korrektne käsk Näiteks: 'üles', 'alla', 'vasak', või 'parem'.");
         return;
     }
