@@ -5,11 +5,13 @@ document.getElementById("command").addEventListener("keydown", function(event) {
     }
 });
 
+ /*
 document.addEventListener("DOMContentLoaded", function() {
     // Hide main content initially
     document.getElementById('main').style.display = 'none';
     document.getElementById('footer').style.display = 'none';
 });
+*/
 
 // Initializes the leaderboard display when the page loads.
 window.onload = function() {
@@ -285,6 +287,7 @@ function displayMessage(msg, extraClass = null) {
     output.prepend(newMessage);
 }
 
+ /*
 //languageModal
 function redirectEng() {
     window.location.href = "index.html"; //the eng version URL
@@ -295,3 +298,4 @@ function closeModal() {
     document.getElementById('main').style.display = 'block'; // Shows stuff.
     document.getElementById('footer').style.display = 'block';
 }
+*/
