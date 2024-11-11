@@ -286,8 +286,8 @@ function displayMessage(msg, extraClass = null) {
 }
 
 //languageModal
-function redirectEstonian() {
-    window.location.href = "est.html"; // Replace with the Estonian version URL
+function redirectEng() {
+    window.location.href = "index.html"; //the eng version URL
 }
 
 function closeModal() {
