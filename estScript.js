@@ -109,7 +109,7 @@ function endGame(message) {
     const finalMessage = `${message} Aega kulus: ${timeTaken.toFixed(2)} sekundit. Samme: ${stepCount}.`;
 
     // Checks if the game was won or lost.
-    const isSuccess = message.includes("pääsenud kummitusmajast");
+    const isSuccess = message.includes("pääsenud kummituste majast");
 
     // Displays the final message with the success-message class if the game was won.
     displayMessage(finalMessage, isSuccess ? "success-message" : null);
@@ -120,8 +120,6 @@ function endGame(message) {
         updateLeaderboardDisplay();
     }
 }
-
-
 
 // Saves the score to the leaderboard.
 function saveScore(timeTaken, steps) {
@@ -201,7 +199,7 @@ function checkRoom() {
     }
 
     if (playerPosition === keyPosition) {
-        message += "Leidsid võtme! ";
+        message += "Leidsid võtme! Teid ei hoiatata enam, kui kummitus on läheduses.";
         hasKey = true;
         keyPosition = null; // Removes the key from the room.
     }
@@ -212,7 +210,7 @@ function checkRoom() {
         } else if (!layoutChanged) {
             message += "Siin pole midagi huvitavat.";
         } else {
-            endGame("Palju õnne! Olete pääsenud kummitusmajast!");
+            endGame("Palju õnne! Olete pääsenud kummituste majast!");
         }
         displayMessage(message);
         return;
