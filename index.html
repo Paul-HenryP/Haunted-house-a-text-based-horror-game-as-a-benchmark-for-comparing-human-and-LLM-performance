@@ -28,7 +28,9 @@
 
     <main id="main">
         <section id="instructions">
-            <h2>Game Instructions</h2>
+            <h2>Game Instructions<button id="toggleInstructions" onclick="toggleInstructions()">
+            &#9660; <!-- Down arrow icon --></button></h2>
+            <div id="instructionContent" class="collapsible">
             <p>Welcome to the Haunted House game! 👻 <br><br>In this text-based game, you are trapped in a house with an evil ghost. The exit door is locked. You have to find the key, unlock the door, and leave the house. Please read the following instructions carefully! <br><br>
                 Here’s the information that you have:</p>
             <ul>
@@ -52,6 +54,7 @@
                 <li>There are many other verbal clues so pay close attention to them! </li>
             </ul>
             <p>To start the game, type the first direction you want to move.</p>
+            </div>
         </section>
 
         <section>
