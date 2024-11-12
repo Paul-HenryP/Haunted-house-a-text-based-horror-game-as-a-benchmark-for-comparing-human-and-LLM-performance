@@ -10,6 +10,19 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
 /* Collapsible section style */
+
+/* Show the instructions content when open by default */
+#instructionsContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+#instructions.open #instructionsContent {
+    max-height: 1000px; /* Large enough to show all content */
+}
+
+
 .collapsible {
     max-height: 0;
     overflow: hidden;
