@@ -221,7 +221,7 @@ function checkRoom() {
         // Layout changes once the player returns to C1 with the key.
         layoutChanged = true;
         doorPosition = "A3"; // Moves the door to A3.
-        message += "The layout of the house has changed. The ghost has moved to the location that is the maximum distance from your current room. ";
+        message += "The layout of the house has changed. The door has moved to the location that is the maximum distance from your current room. ";
     } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
         // Moves the ghost down by one room when the player reaches C2 or B1 after layout change.
         if (ghostPosition === "B2") {
