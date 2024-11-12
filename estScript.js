@@ -92,7 +92,7 @@ function movePlayerByDirection(direction) {
         stepCount++; // Increments step count.
         checkRoom();
     } else {
-        displayMessage("Sa ei saa liikuda siit suunas " + direction + ".");
+        displayMessage("Sa ei saa sinna liikuda. ");
     }
 }
 
@@ -109,7 +109,7 @@ function endGame(message) {
     const finalMessage = `${message} Aega kulus: ${timeTaken.toFixed(2)} sekundit. Samme: ${stepCount}.`;
 
     // Checks if the game was won or lost.
-    const isSuccess = message.includes("escaped the haunted house");
+    const isSuccess = message.includes("pääsenud kummitusmajast");
 
     // Displays the final message with the success-message class if the game was won.
     displayMessage(finalMessage, isSuccess ? "success-message" : null);
@@ -128,7 +128,7 @@ function saveScore(timeTaken, steps) {
     // Get the existing leaderboard from localStorage, or start with an empty array.
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-    // Formats the date in European style (DD.MM.YYYY HH:MM).
+    // Formats the date in European style.
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
@@ -181,13 +181,13 @@ function movePlayer(targetRoom) {
         // Checks if the target room is adjacent to the current room.
         if (isNearby(targetRoom)) {
             playerPosition = targetRoom;
-            stepCount++; // Increment.
+            stepCount++;
             checkRoom();
         } else {
-            displayMessage("Sa ei saa liikuda otse " + targetRoom + ". See ruum ei ole su ruumi kõrval.");
+            displayMessage("Sa ei saa sinna liikuda. ");
         }
     } else {
-        displayMessage("Vale käsk. Palun sisesta korrektne käsk (Näiteks: A1, B2).");
+        displayMessage("Vale käsk. Palun sisesta korrektne käsk (Näiteks: üles, alla, vasak, parem).");
     }
 }
 
@@ -208,11 +208,11 @@ function checkRoom() {
 
     if (playerPosition === "A3") {
         if (ghostBlockedDoor) {
-            endGame("Olete jõudnud ukseni, kuid kummitus blokeeris seda ja sai su kätte!");
+            endGame("Mäng läbi - Kohtasid kummitust!");
         } else if (!layoutChanged) {
             message += "Siin pole midagi huvitavat.";
         } else {
-            endGame("Palju õnne! Olete jõudnud ukseni ja pääsenud kummitusmajast!");
+            endGame("Palju õnne! Olete pääsenud kummitusmajast!");
         }
         displayMessage(message);
         return;
@@ -222,19 +222,19 @@ function checkRoom() {
         // Layout changes once the player returns to C1 with the key.
         layoutChanged = true;
         doorPosition = "A3"; // Moves the door to A3.
-        message += "Maja planeering on muutunud. Uks on liikunud ruumi, mis on teie praegusest asukohast maksimaalsel kaugusel. ";
+        message += "Maja planeering on muutunud. Uks on liikunud ruumi, mis on teie praegusest ruumist maksimaalsel kaugusel. ";
     } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
         // Moves the ghost down by one room when the player reaches C2 or B1 after layout change.
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
             ghostAlreadyMovedDownOnce = true;
-            message += "Kummitus on oma eelmisest asukohast liikunud ühe toa võrra allapoole. ";
+            message += "Kummitus on liikunud ühe toa võrra allapoole. ";
         }
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
         // Moves the ghost left by one room when the player reaches A2 (ghost blocks the door).
         ghostPosition = "A3";
         ghostBlockedDoor = true; // Updates the flag since the ghost is now at A3.
-        message += "Kummitus on liikunud ühe toa võrra vasakule.";
+        message += "Kummitus on liikunud ühe toa võrra vasakule. ";
     } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && ghostBlockedDoor && !ghostMovementComplete) {
         // Move the ghost two rooms to the right when the player moves from A1 or B2.
         ghostBlockedDoor = false; // Updates the flag since the ghost is now not at A3.
@@ -243,7 +243,7 @@ function checkRoom() {
         } else if (ghostPosition === "A3") {
             ghostPosition = "C3"; // Move the ghost from A3 to C3.
         }
-        message += "The ghost has moved two rooms to the right. ";
+        message += "Kummitus on liikunud kaks tuba paremale. ";
         ghostMovementComplete = true; // The ghost will no longer move after this.
     }
 
