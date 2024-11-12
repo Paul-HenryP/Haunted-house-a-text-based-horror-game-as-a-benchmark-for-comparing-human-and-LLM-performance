@@ -17,11 +17,13 @@ window.onload = function() {
 };
 
 function toggleInstructions() {
-    const instructions = document.getElementById("instructions");
-    instructions.classList.toggle("open");
-
+    const instructionsContent = document.getElementById("instructionsContent");
     const toggleButton = document.getElementById("toggleInstructions");
-    toggleButton.textContent = instructions.classList.contains("open") ? "▲" : "▼";
+
+    instructionsContent.classList.toggle("open");
+    toggleButton.classList.toggle("open");
+
+    toggleButton.textContent = instructionsContent.classList.contains("open") ? "▲" : "▼";
 }
 
 //To collapse instructions.
