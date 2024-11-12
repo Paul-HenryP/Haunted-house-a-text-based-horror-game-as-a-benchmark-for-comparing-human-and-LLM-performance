@@ -200,7 +200,7 @@ function checkRoom() {
     }
 
     if (playerPosition === keyPosition) {
-        message += "You found the key! ";
+        message += "You found the key! You will no longer be warned when a ghost is nearby.";
         hasKey = true;
         keyPosition = null; // Removes the key from the room.
     }
