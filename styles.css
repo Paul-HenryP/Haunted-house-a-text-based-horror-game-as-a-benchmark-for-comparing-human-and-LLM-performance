@@ -113,6 +113,10 @@ main {
 }
 
 /* Input and Button Styles */
+.inputarea{
+    text-align: center !important;
+}
+
 input[type="text"] {
     padding: 10px;
     border: 1px solid #555;
