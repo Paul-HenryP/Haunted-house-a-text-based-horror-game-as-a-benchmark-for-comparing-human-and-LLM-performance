@@ -5,13 +5,20 @@ document.getElementById("command").addEventListener("keydown", function(event) {
     }
 });
 
- /*
+
 document.addEventListener("DOMContentLoaded", function() {
-    // Hide main content initially
-    document.getElementById('main').style.display = 'none';
-    document.getElementById('footer').style.display = 'none';
+    //document.getElementById('main').style.display = 'none';
+    //document.getElementById('footer').style.display = 'none';
+    
+    const instructionContent = document.getElementById("instructionContent");
+    const toggleButton = document.getElementById("toggleInstructions");
+
+    // Toggle the 'open' class to expand content initially.
+    instructionContent.classList.toggle("open");
+    toggleButton.classList.toggle("open");
+    
 });
-*/
+
 
 // Initializes the leaderboard display when the page loads.
 window.onload = function() {
