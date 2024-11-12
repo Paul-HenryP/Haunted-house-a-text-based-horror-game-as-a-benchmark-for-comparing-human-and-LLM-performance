@@ -23,12 +23,14 @@ body {
 }
 
 /* Toggle button style */
-.toggleInstructions {
-    background: none;
-    border: none;
-    font-size: 1.2em;
+#toggleInstructions {
+    all: unset; /* Removes all inherited styles */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transform: rotate(0deg);
+    font-size: 1.2em; /* Adjust icon size */
+    color: #d7c485; /* Change this to match your theme */
     transition: transform 0.4s;
 }
 
