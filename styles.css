@@ -17,7 +17,7 @@ body {
 }
 
 .collapsible.open {
-    max-height: 500px; /* Adjust based on content size */
+    max-height: 500px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -29,8 +29,8 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1.2em; /* Adjust icon size */
-    color: #d7c485; /* Change this to match your theme */
+    font-size: 1.2em;
+    color: #d7c485;
     transition: transform 0.4s;
 }
 
