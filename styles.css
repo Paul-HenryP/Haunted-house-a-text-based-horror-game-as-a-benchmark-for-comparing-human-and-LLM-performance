@@ -9,6 +9,34 @@ body {
 }
 @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
+/* Collapsible section style */
+.collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.collapsible.open {
+    max-height: 500px; /* Adjust based on content size */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Toggle button style */
+#toggleInstructions {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    transform: rotate(0deg);
+    transition: transform 0.4s;
+}
+
+#toggleInstructions.open {
+    transform: rotate(180deg); /* Rotate to point up when open */
+}
+
+
 /* Modal box styling */
     .modal {
       background: #0D0D0D;
