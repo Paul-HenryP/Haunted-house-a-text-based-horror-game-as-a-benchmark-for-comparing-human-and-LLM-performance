@@ -18,6 +18,23 @@ window.onload = function() {
     updateLeaderboardDisplay();
 };
 
+//To collapse instructions.
+function toggleInstructions() {
+    const instructionContent = document.getElementById("instructionContent");
+    const toggleButton = document.getElementById("toggleInstructions");
+
+    // Toggle the 'open' class to collapse/expand content.
+    instructionContent.classList.toggle("open");
+    toggleButton.classList.toggle("open");
+
+    // Adjust the max-height for smooth transition.
+    if (instructionContent.classList.contains("open")) {
+        instructionContent.style.maxHeight = instructionContent.scrollHeight + "px";
+    } else {
+        instructionContent.style.maxHeight = "0";
+    }
+}
+
 
 // Game state.
 let playerPosition = "C1";
