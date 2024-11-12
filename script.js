@@ -88,10 +88,10 @@ function movePlayerByDirection(direction) {
     const newRoom = roomMap[playerPosition][direction];
     if (newRoom) {
         playerPosition = newRoom;
-        stepCount++; // Increments step count.
+        stepCount++;
         checkRoom();
     } else {
-        displayMessage("You can't move " + direction + " from here.");
+        displayMessage("You cannot move there. ");
     }
 }
 
@@ -127,7 +127,7 @@ function saveScore(timeTaken, steps) {
     // Get the existing leaderboard from localStorage, or start with an empty array.
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-    // Formats the date in European style (DD.MM.YYYY HH:MM).
+    // Formats the date in European style.
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed.
@@ -180,13 +180,13 @@ function movePlayer(targetRoom) {
         // Checks if the target room is adjacent to the current room.
         if (isNearby(targetRoom)) {
             playerPosition = targetRoom;
-            stepCount++; // Increment.
+            stepCount++;
             checkRoom();
         } else {
-            displayMessage("You can't move directly to " + targetRoom + ". It is not adjacent to your current position.");
+            displayMessage("You cannot move there. ");
         }
     } else {
-        displayMessage("Invalid room code. Please enter a valid room code (e.g., A1, B2).");
+        displayMessage("Invalid room code. Please enter a valid room code (up, down, left or right). "); //old, consider removal.
     }
 }
 
@@ -207,11 +207,11 @@ function checkRoom() {
 
     if (playerPosition === "A3") {
         if (ghostBlockedDoor) {
-            endGame("You have reached the door, but it was blocked by the ghost and it killed you!");
+            endGame("Game over - You encountered the ghost!");
         } else if (!layoutChanged) {
-            message += "Nothing of interest here.";
+            message += "There’s nothing of interest here.";
         } else {
-            endGame("Congratulations! You have reached the door at A3 and escaped the haunted house!");
+            endGame("Congratulations - You have escaped the haunted house!");
         }
         displayMessage(message);
         return;
@@ -221,28 +221,28 @@ function checkRoom() {
         // Layout changes once the player returns to C1 with the key.
         layoutChanged = true;
         doorPosition = "A3"; // Moves the door to A3.
-        message += "The layout of the house has changed. The door has moved to the room that is of maximum distance from your current location. ";
+        message += "The layout of the house has changed. The ghost has moved to the location that is the maximum distance from your current room. ";
     } else if ((playerPosition === "B1" || playerPosition === "C2") && layoutChanged && !ghostMovementComplete && !ghostAlreadyMovedDownOnce) {
         // Moves the ghost down by one room when the player reaches C2 or B1 after layout change.
         if (ghostPosition === "B2") {
             ghostPosition = "B3";
             ghostAlreadyMovedDownOnce = true;
-            message += "The ghost has moved down one room from its previous location.";
+            message += "The ghost has moved one room down. ";
         }
     } else if (playerPosition === "A2" && layoutChanged && !ghostMovementComplete && !ghostBlockedDoor) {
         // Moves the ghost left by one room when the player reaches A2 (ghost blocks the door).
         ghostPosition = "A3";
         ghostBlockedDoor = true; // Updates the flag since the ghost is now at A3.
-        message += "The ghost has moved one room to the left.";
+        message += "The ghost has moved one room left. ";
     } else if ((playerPosition === "A1" || playerPosition === "B2") && layoutChanged && ghostBlockedDoor && !ghostMovementComplete) {
         // Move the ghost two rooms to the right when the player moves from A1 or B2.
-        ghostBlockedDoor = false; // Updates the flag since the ghost is now not at A3.
+        ghostBlockedDoor = false; // Updates the flag.
         if (ghostPosition === "A2") {
             ghostPosition = "C2"; // Move the ghost from A2 to C2.
         } else if (ghostPosition === "A3") {
             ghostPosition = "C3"; // Move the ghost from A3 to C3.
         }
-        message += "The ghost has moved two rooms to the right. ";
+        message += "The ghost has moved two rooms right. ";
         ghostMovementComplete = true; // The ghost will no longer move after this.
     }
 
@@ -254,16 +254,16 @@ function checkRoom() {
 function checkForNearbyEntities(existingMessage) {
     let messages = [];
     if (isNearby(ghostPosition) && !layoutChanged) {
-        messages.push("There's a ghost nearby. ");
+        messages.push("There’s a ghost nearby. ");
     }
     if (isNearby(keyPosition) && !hasKey) {
-        messages.push("There's a key nearby. ");
+        messages.push("There’s a key nearby. ");
     }
     let combinedMessage = existingMessage + " " + messages.join(" ").trim();
     if (combinedMessage.trim()) {
         displayMessage(combinedMessage);
     } else {
-        displayMessage("Nothing of interest here. ");
+        displayMessage("There’s nothing of interest here. ");
     }
 }
 
