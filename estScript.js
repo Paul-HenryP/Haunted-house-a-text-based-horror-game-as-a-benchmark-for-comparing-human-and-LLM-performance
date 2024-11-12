@@ -18,7 +18,17 @@ window.onload = function() {
     updateLeaderboardDisplay();
 };
 
+function toggleInstructions() {
+    const instructions = document.getElementById("instructions");
+    instructions.classList.toggle("open");
+
+    const toggleButton = document.getElementById("toggleInstructions");
+    toggleButton.textContent = instructions.classList.contains("open") ? "▲" : "▼";
+}
+
+
 //To collapse instructions.
+ /*
 function toggleInstructions() {
     const instructionContent = document.getElementById("instructionContent");
     const toggleButton = document.getElementById("toggleInstructions");
@@ -34,7 +44,7 @@ function toggleInstructions() {
         instructionContent.style.maxHeight = "0";
     }
 }
-
+*/
 
 // Game state.
 let playerPosition = "C1";
