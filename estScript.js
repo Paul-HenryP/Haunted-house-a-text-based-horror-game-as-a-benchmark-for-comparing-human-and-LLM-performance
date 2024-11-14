@@ -272,7 +272,6 @@ function checkForNearbyEntities(existingMessage) {
     }
 }
 
-
 // Checks if a position is adjacent.
 function isNearby(position) {
     const adjacentRooms = {
@@ -285,7 +284,7 @@ function isNearby(position) {
 
 // Displays the messages with an optional additional class.
 function displayMessage(msg, extraClass = null) {
-    if (!msg || !msg.trim()) return; // Do nothing if the message is empty or just whitespace.
+    if (!msg || !msg.trim()) return; // Does nothing if the message is empty or just whitespace.
 
     const output = document.getElementById("output");
 
