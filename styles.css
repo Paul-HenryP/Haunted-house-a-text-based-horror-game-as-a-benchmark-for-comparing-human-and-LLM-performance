@@ -147,7 +147,7 @@ button:hover {
 #instructions {
     margin-top: 20px;
     background-color: rgba(34, 34, 34, 0.8);
-    padding: 15px;
+    padding: 15px 15px 2px 15px;
     border-radius: 8px;
     color: #E0E0E0;
 }
