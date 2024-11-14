@@ -258,7 +258,7 @@ function checkRoom() {
 // Modified checkForNearbyEntities to accept a message parameter.
 function checkForNearbyEntities(existingMessage) {
     let messages = [];
-    if (isNearby(ghostPosition) && !layoutChanged) {
+    if (isNearby(ghostPosition) && !layoutChanged && !hasKey) {
         messages.push("Kummitus on läheduses. ");
     }
     if (isNearby(keyPosition) && !hasKey) {
