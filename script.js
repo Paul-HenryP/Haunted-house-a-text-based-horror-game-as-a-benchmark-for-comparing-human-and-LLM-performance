@@ -304,18 +304,18 @@ function displayMessage(msg, extraClass = null) {
     if (extraClass) {
         newMessage.classList.add(extraClass);
     }
-
     // Adds the new message to the top of the output.
     output.prepend(newMessage);
 }
 
 //languageModal
 function redirectEstonian() {
-    window.location.href = "est.html"; // Replace with the Estonian version URL
+    window.location.href = "est.html";
 }
 
+// Shows stuff after language is selected.
 function closeModal() {
     document.getElementById('languageModal').style.display = 'none';
-    document.getElementById('main').style.display = 'block'; // Shows stuff.
+    document.getElementById('main').style.display = 'block';
     document.getElementById('footer').style.display = 'block';
 }
