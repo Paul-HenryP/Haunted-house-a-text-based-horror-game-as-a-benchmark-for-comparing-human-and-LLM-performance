@@ -12,6 +12,7 @@ body {
 
 /* Collapsible section style */
 
+/*
 .collapsible {
     max-height: 0;
     overflow: hidden;
@@ -38,7 +39,7 @@ body {
 #toggleInstructions.open {
     transform: rotate(180deg);
 }
-
+*/
 /* Modal box styling */
     .modal {
       background: #0D0D0D;
