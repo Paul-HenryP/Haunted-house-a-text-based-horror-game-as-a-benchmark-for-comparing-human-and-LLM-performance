@@ -7,6 +7,7 @@ document.getElementById("command").addEventListener("keydown", function(event) {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Hide main content initially before the language selection.
+    /*
     document.getElementById('main').style.display = 'none';
     document.getElementById('footer').style.display = 'none';
 
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Toggle the 'open' class to expand content.
     instructionContent.classList.toggle("open");
     toggleButton.classList.toggle("open");
+    */
 });
 
 // Initializes the leaderboard display when the page loads.
@@ -25,6 +27,7 @@ window.onload = function() {
 
 
 //To collapse instructions.
+/*
 function toggleInstructions() {
     const instructionContent = document.getElementById("instructionContent");
     const toggleButton = document.getElementById("toggleInstructions");
@@ -40,7 +43,7 @@ function toggleInstructions() {
         instructionContent.style.maxHeight = "0";
     }
 }
-
+*/
 // Game state.
 let playerPosition = "C1";
 let keyPosition = "A1";
@@ -125,8 +128,6 @@ function endGame(message) {
         updateLeaderboardDisplay();
     }
 }
-
-
 
 // Saves the score to the leaderboard.
 function saveScore(timeTaken, steps) {
