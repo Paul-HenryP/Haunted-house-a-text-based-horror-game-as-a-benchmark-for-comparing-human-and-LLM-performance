@@ -80,7 +80,6 @@ function processCommand() {
     if (!startTime) {
         startTime = new Date(); // Records the current time when the first move is made.
     }
-
     const command = document.getElementById("command").value.trim().toLowerCase();
     movePlayerByDirection(command);
     document.getElementById("command").value = "";
@@ -95,37 +94,14 @@ function movePlayerByDirection(direction) {
 
     const newRoom = roomMap[playerPosition][direction];
     if (newRoom) {
+        moveLog.push(`käik: ${direction}, ruumi: ${newRoom}`); // Logs the move.
         playerPosition = newRoom;
         stepCount++; // Increment.
         checkRoom();
     } else {
+        moveLog.push(`Proovisid liikuda ${direction} aga seal oli sein.`); // Logs invalid move.
         stepCount++;
         displayMessage("Sa ei saa sinna liikuda. ");
-    }
-}
-
-function endGame(message) {
-    gameOver = true;
-
-    // Records the end time.
-    endTime = new Date();
-
-    // Calculates the total time taken.
-    const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
-
-    // Combines the game result, time taken, and step count into a single message.
-    const finalMessage = `${message} Aega kulus: ${timeTaken.toFixed(2)} sekundit. Samme: ${stepCount}.`;
-
-    // Checks if the game was won or lost.
-    const isSuccess = message.includes("pääsenud kummituste majast");
-
-    // Displays the final message with the success-message class if the game was won.
-    displayMessage(finalMessage, isSuccess ? "success-message" : null);
-
-    // Saves the score to the leaderboard only if the player escaped successfully.
-    if (isSuccess) {
-        saveScore(timeTaken, stepCount);
-        updateLeaderboardDisplay();
     }
 }
 
@@ -305,10 +281,46 @@ function displayMessage(msg, extraClass = null) {
     if (extraClass) {
         newMessage.classList.add(extraClass);
     }
-
     // Adds the new message to the top of the output.
     output.prepend(newMessage);
 }
+
+function endGame(message) {
+    gameOver = true;
+    // Records the end time.
+    endTime = new Date();
+    // Calculates the total time taken.
+    const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
+    // Combines the game result, time taken, and step count into a single message.
+    const finalMessage = `${message} Aega kulus: ${timeTaken.toFixed(2)} sekundit. Samme: ${stepCount}.`;
+    // Checks if the game was won or lost.
+    const isSuccess = message.includes("pääsenud kummituste majast");
+    // Displays the final message with the success-message class if the game was won.
+    displayMessage(finalMessage, isSuccess ? "success-message" : null);
+    // Saves the score to the leaderboard only if the player escaped successfully.
+    if (isSuccess) {
+        saveScore(timeTaken, stepCount);
+        updateLeaderboardDisplay();
+    }
+    
+    openMovesLogModal();
+}
+
+var modal = document.getElementById('movesLogModal');
+// Get the <span> element that closes the modal.
+var span = document.getElementsByClassName('close')[0];
+// When the user clicks on <span> (x), closes the modal.
+span.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// When the user clicks anywhere outside of the modal, closes it.
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
 
  /*
 //languageModal
