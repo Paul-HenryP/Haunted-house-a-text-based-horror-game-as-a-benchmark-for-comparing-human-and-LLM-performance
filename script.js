@@ -333,6 +333,8 @@ function endGame(message) {
         saveScore(timeTaken, stepCount);
         updateLeaderboardDisplay();
     }
+
+    openMovesLogModal();
 }
 
 var modal = document.getElementById('movesLogModal');
