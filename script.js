@@ -1,12 +1,12 @@
 // Event listener for the "Enter" key.
 document.getElementById("command").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
-        processCommand(); // Calls the function when Enter is pressed.
+        processCommand();
     }
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Hide main content initially before the language selection.
+    // Hides the main content initially before the language selection.
     
     document.getElementById('main').style.display = 'none';
     document.getElementById('footer').style.display = 'none';
@@ -32,11 +32,10 @@ function toggleInstructions() {
     const instructionContent = document.getElementById("instructionContent");
     const toggleButton = document.getElementById("toggleInstructions");
 
-    // Toggle the 'open' class to collapse/expand content.
+    // Toggles the 'open' class to collapse/expand content.
     instructionContent.classList.toggle("open");
     toggleButton.classList.toggle("open");
 
-    // Adjust the max-height for smooth transition.
     if (instructionContent.classList.contains("open")) {
         instructionContent.style.maxHeight = instructionContent.scrollHeight + "px";
     } else {
@@ -138,24 +137,22 @@ function saveScore(timeTaken, steps) {
 
 // Displays the leaderboard.
 function updateLeaderboardDisplay() {
-    // Gets the leaderboard data from localStorage
+    // Gets the leaderboard data from localStorage.
     const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-    // Gets the leaderboard element
+    // Gets the leaderboard element.
     const leaderboardElement = document.getElementById("leaderboard");
 
-    // Clears the existing leaderboard display
+    // Clears the existing leaderboard display.
     leaderboardElement.innerHTML = "<h2>Leaderboard</h2>";
 
-    // Adds each score to the leaderboard display
+    // Adds each score to the leaderboard display.
     leaderboard.forEach((entry, index) => {
         const scoreItem = document.createElement("p");
         scoreItem.textContent = `${index + 1}. Time: ${entry.time} seconds, Steps: ${entry.steps}, Date: ${entry.date}`;
         leaderboardElement.appendChild(scoreItem);
     });
 }
-
-
 
 // Moves player to the specified room code.
 function movePlayer(targetRoom) {
