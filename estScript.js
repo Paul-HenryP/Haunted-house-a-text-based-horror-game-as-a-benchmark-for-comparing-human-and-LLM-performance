@@ -95,9 +95,10 @@ function movePlayerByDirection(direction) {
     const newRoom = roomMap[playerPosition][direction];
     if (newRoom) {
         playerPosition = newRoom;
-        stepCount++; // Increments step count.
+        stepCount++; // Increment.
         checkRoom();
     } else {
+        stepCount++;
         displayMessage("Sa ei saa sinna liikuda. ");
     }
 }
@@ -188,6 +189,7 @@ function movePlayer(targetRoom) {
             stepCount++;
             checkRoom();
         } else {
+            stepCount++;
             displayMessage("Sa ei saa sinna liikuda. ");
         }
     } else {
