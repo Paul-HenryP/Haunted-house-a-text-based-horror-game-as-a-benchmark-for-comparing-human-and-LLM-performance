@@ -100,6 +100,7 @@ function movePlayerByDirection(direction) {
         stepCount++;
         checkRoom();
     } else {
+        stepCount++;
         displayMessage("You cannot move there. ");
     }
 }
@@ -190,6 +191,7 @@ function movePlayer(targetRoom) {
             stepCount++;
             checkRoom();
         } else {
+            stepCount++;
             displayMessage("You cannot move there. ");
         }
     } else {
