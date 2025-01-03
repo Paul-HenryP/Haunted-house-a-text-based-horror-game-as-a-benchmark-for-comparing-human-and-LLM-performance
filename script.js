@@ -134,7 +134,6 @@ function saveScore(timeTaken, steps) {
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 }
 
-
 // Displays the leaderboard.
 function updateLeaderboardDisplay() {
     // Gets the leaderboard data from localStorage.
@@ -251,7 +250,6 @@ function checkForNearbyEntities(existingMessage) {
     }
 }
 
-
 // Checks if a position is adjacent.
 function isNearby(position) {
     const adjacentRooms = {
@@ -286,7 +284,7 @@ function displayMessage(msg, extraClass = null) {
     output.prepend(newMessage);
 }
 
-//languageModal
+// LanguageModal link redirection.
 function redirectEstonian() {
     window.location.href = "est.html";
 }
@@ -303,7 +301,7 @@ function openMovesLogModal() {
         movesLogContent.appendChild(logEntry);
     });
 
-    // Display the modal
+    // Displays the modal.
     modal.style.display = 'block';
 }
 
