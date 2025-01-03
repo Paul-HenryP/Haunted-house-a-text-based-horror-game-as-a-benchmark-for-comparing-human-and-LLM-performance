@@ -285,6 +285,21 @@ function displayMessage(msg, extraClass = null) {
     output.prepend(newMessage);
 }
 
+function openMovesLogModal() {
+    // Populates the moves log content.
+    var movesLogContent = document.getElementById('movesLogContent');
+    movesLogContent.innerHTML = ''; // Clears previous content.
+
+    moveLog.forEach(move => {
+        var logEntry = document.createElement('p');
+        logEntry.textContent = move;
+        movesLogContent.appendChild(logEntry);
+    });
+
+    // Displays the modal.
+    modal.style.display = 'block';
+}
+
 function endGame(message) {
     gameOver = true;
     // Records the end time.
