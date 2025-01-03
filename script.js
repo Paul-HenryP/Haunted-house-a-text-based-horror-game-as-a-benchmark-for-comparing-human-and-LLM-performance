@@ -58,6 +58,7 @@ let ghostAlreadyMovedDownOnce = false; //Ghost has already moved down once.
 let startTime = null; // Tracks the start time of the game.
 let endTime = null;   // Tracks the end time of the game.
 let stepCount = 0; // Tracks the number of steps taken by the player.
+let moveLog = []; // Tracks the player's moves.
 
 
 // Mapping of rooms and their directional neighbors
