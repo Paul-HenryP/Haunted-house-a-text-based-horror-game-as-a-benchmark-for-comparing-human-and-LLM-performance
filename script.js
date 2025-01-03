@@ -97,37 +97,14 @@ function movePlayerByDirection(direction) {
 
     const newRoom = roomMap[playerPosition][direction];
     if (newRoom) {
+        moveLog.push(`Moved ${direction} to ${newRoom}`); // Logs the move.
         playerPosition = newRoom;
         stepCount++;
         checkRoom();
     } else {
+        moveLog.push(`Attempted to move ${direction} but hit a wall.`); // Logs invalid move.
         stepCount++;
         displayMessage("You cannot move there. ");
-    }
-}
-
-function endGame(message) {
-    gameOver = true;
-
-    // Records the end time.
-    endTime = new Date();
-
-    // Calculates the total time taken.
-    const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
-
-    // Combines the game result, time taken, and step count into a single message.
-    const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds. Steps taken: ${stepCount}.`;
-
-    // Checks if the game was won or lost.
-    const isSuccess = message.includes("escaped the haunted house");
-
-    // Displays the final message with the success-message class if the game was won.
-    displayMessage(finalMessage, isSuccess ? "success-message" : null);
-
-    // Saves the score to the leaderboard only if the player escaped successfully.
-    if (isSuccess) {
-        saveScore(timeTaken, stepCount);
-        updateLeaderboardDisplay();
     }
 }
 
@@ -317,7 +294,63 @@ function redirectEstonian() {
     window.location.href = "est.html";
 }
 
-// Shows stuff after language is selected.
+// Function to open the moves log modal.
+function openMovesLogModal() {
+    // Populates the moves log content.
+    var movesLogContent = document.getElementById('movesLogContent');
+    movesLogContent.innerHTML = ''; // Clears previous content.
+
+    moveLog.forEach(move => {
+        var logEntry = document.createElement('p');
+        logEntry.textContent = move;
+        movesLogContent.appendChild(logEntry);
+    });
+
+    // Display the modal
+    modal.style.display = 'block';
+}
+
+function endGame(message) {
+    gameOver = true;
+
+    // Records the end time.
+    endTime = new Date();
+
+    // Calculates the total time taken.
+    const timeTaken = (endTime - startTime) / 1000; // Time in seconds.
+
+    // Combines the game result, time taken, and step count into a single message.
+    const finalMessage = `${message} Total time taken: ${timeTaken.toFixed(2)} seconds. Steps taken: ${stepCount}.`;
+
+    // Checks if the game was won or lost.
+    const isSuccess = message.includes("escaped the haunted house");
+
+    // Displays the final message with the success-message class if the game was won.
+    displayMessage(finalMessage, isSuccess ? "success-message" : null);
+
+    // Saves the score to the leaderboard only if the player escaped successfully.
+    if (isSuccess) {
+        saveScore(timeTaken, stepCount);
+        updateLeaderboardDisplay();
+    }
+}
+
+var modal = document.getElementById('movesLogModal');
+// Get the <span> element that closes the modal.
+var span = document.getElementsByClassName('close')[0];
+// When the user clicks on <span> (x), closes the modal.
+span.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// When the user clicks anywhere outside of the modal, closes it.
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Shows the page after language is selected.
 function closeModal() {
     document.getElementById('languageModal').style.display = 'none';
     document.getElementById('main').style.display = 'block';
