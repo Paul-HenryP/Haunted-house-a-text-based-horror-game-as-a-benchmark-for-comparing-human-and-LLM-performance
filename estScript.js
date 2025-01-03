@@ -94,7 +94,7 @@ function movePlayerByDirection(direction) {
 
     const newRoom = roomMap[playerPosition][direction];
     if (newRoom) {
-        moveLog.push(`käik: ${direction}, ruumi: ${newRoom}`); // Logs the move.
+        moveLog.push(`Käik: ${direction}, ruumi: ${newRoom}`); // Logs the move.
         playerPosition = newRoom;
         stepCount++; // Increment.
         checkRoom();
