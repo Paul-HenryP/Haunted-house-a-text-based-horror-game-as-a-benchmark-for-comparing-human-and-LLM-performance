@@ -25,6 +25,9 @@ window.onload = function() {
     updateLeaderboardDisplay();
 };
 
+// Event listener for the "Copy Log" button.
+document.getElementById('copyLogButton').addEventListener('click', copyLogToClipboard);
+
 
 //To collapse instructions.
 /*
@@ -72,6 +75,22 @@ const roomMap = {
     "C2": { up: "C1", down: "C3", left: "B2", right: null },
     "C3": { up: "C2", down: null, left: "B3", right: null }
 };
+
+function copyLogToClipboard() {
+    // Gets the moves log content.
+    const movesLogContent = document.getElementById('movesLogContent').innerText;
+    // Creates a temporary textarea element.
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = movesLogContent;
+    document.body.appendChild(tempTextArea);
+    // Selects the text and copy it to the clipboard.
+    tempTextArea.select();
+    document.execCommand('copy');
+    // Removes the temporary textarea element.
+    document.body.removeChild(tempTextArea);
+    // Displays a message indicating that the log has been copied.
+    alert('Moves log copied to clipboard!');
+}
 
 // Processes player's command.
 function processCommand() {
