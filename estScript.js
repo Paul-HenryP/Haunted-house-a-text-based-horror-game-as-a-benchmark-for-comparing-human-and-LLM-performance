@@ -5,7 +5,6 @@ document.getElementById("command").addEventListener("keydown", function(event) {
     }
 });
 
-
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById('main').style.display = 'none';
     //document.getElementById('footer').style.display = 'none';
@@ -19,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
 });
 
+// Event listener for the "Copy Log" button.
+document.getElementById('copyLogButton').addEventListener('click', copyLogToClipboard);
 
 // Initializes the leaderboard display when the page loads.
 window.onload = function() {
@@ -71,6 +72,22 @@ const roomMap = {
     "C2": { üles: "C1", alla: "C3", vasak: "B2", parem: null },
     "C3": { üles: "C2", alla: null, vasak: "B3", parem: null }
 };
+
+function copyLogToClipboard() {
+    // Gets the moves log content.
+    const movesLogContent = document.getElementById('movesLogContent').innerText;
+    // Creates a temporary textarea element.
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = movesLogContent;
+    document.body.appendChild(tempTextArea);
+    // Selects the text and copy it to the clipboard.
+    tempTextArea.select();
+    document.execCommand('copy');
+    // Removes the temporary textarea element.
+    document.body.removeChild(tempTextArea);
+    // Displays a message indicating that the log has been copied.
+    alert('Käikude logi kopeeritud teie lõikelauale!');
+}
 
 // Processes player's command.
 function processCommand() {
