@@ -101,7 +101,7 @@ function movePlayerByDirection(direction) {
         stepCount++;
         checkRoom();
     } else {
-        moveLog.push(`Attempted to move ${direction} but hit a wall.`); // Logs invalid move.
+        //moveLog.push(`Attempted to move ${direction} but hit a wall.`); // Logs invalid move.
         stepCount++;
         displayMessage("You cannot move there. ");
     }
