@@ -99,7 +99,7 @@ function movePlayerByDirection(direction) {
         stepCount++; // Increment.
         checkRoom();
     } else {
-        moveLog.push(`Proovisid liikuda ${direction} aga seal oli sein.`); // Logs invalid move.
+        //moveLog.push(`Proovisid liikuda ${direction} aga seal oli sein.`); // Logs invalid move.
         stepCount++;
         displayMessage("Sa ei saa sinna liikuda. ");
     }
