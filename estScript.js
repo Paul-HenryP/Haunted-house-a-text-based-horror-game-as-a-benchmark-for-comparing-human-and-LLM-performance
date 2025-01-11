@@ -171,7 +171,8 @@ function updateLeaderboardDisplay() {
 
 
 
-// Moves player to the specified room code.
+// Moves player to the specified room code. (Old function, not in use)
+/*
 function movePlayer(targetRoom) {
     const validRooms = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
@@ -189,7 +190,7 @@ function movePlayer(targetRoom) {
     } else {
         displayMessage("Vale käsk. Palun sisesta korrektne käsk (Näiteks: üles, alla, vasak, parem).");
     }
-}
+} */
 
 // Checks current room status.
 function checkRoom() {
