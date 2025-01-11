@@ -154,17 +154,15 @@ function saveScore(timeTaken, steps) {
 function updateLeaderboardDisplay() {
     // Gets the leaderboard data from localStorage
     const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-
     // Gets the leaderboard element
     const leaderboardElement = document.getElementById("leaderboard");
-
     // Clears the existing leaderboard display
-    leaderboardElement.innerHTML = "<h2>Leaderboard</h2>";
+    leaderboardElement.innerHTML = "<h2>Edetabel</h2>";
 
     // Adds each score to the leaderboard display
     leaderboard.forEach((entry, index) => {
         const scoreItem = document.createElement("p");
-        scoreItem.textContent = `${index + 1}. Time: ${entry.time} seconds, Steps: ${entry.steps}, Date: ${entry.date}`;
+        scoreItem.textContent = `${index + 1}. Aeg: ${entry.time} sekundit, Samme: ${entry.steps}, Kuupäev: ${entry.date}`;
         leaderboardElement.appendChild(scoreItem);
     });
 }
