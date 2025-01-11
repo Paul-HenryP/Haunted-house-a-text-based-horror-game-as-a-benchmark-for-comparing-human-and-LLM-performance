@@ -162,7 +162,7 @@ function updateLeaderboardDisplay() {
     // Adds each score to the leaderboard display
     leaderboard.forEach((entry, index) => {
         const scoreItem = document.createElement("p");
-        scoreItem.textContent = `${index + 1}. Aeg: ${entry.time} sekundit, Samme: ${entry.steps}, Kuupäev: ${entry.date}`;
+        scoreItem.textContent = `${index + 1}. Aeg: ${entry.time} sekundit, samme: ${entry.steps}, kuupäev: ${entry.date}`;
         leaderboardElement.appendChild(scoreItem);
     });
 }
