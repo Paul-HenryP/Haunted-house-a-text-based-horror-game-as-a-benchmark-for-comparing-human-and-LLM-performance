@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("toggleInstructions");
 
     // Toggle the 'open' class to expand content initially.
-    instructionContent.classList.toggle("open");
-    toggleButton.classList.toggle("open");
+    /*instructionContent.classList.toggle("open");
+    toggleButton.classList.toggle("open");*/
     
 });
 
