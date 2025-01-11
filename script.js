@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
     
     document.getElementById('main').style.display = 'none';
     document.getElementById('footer').style.display = 'none';
-    /*
+    
     const instructionContent = document.getElementById("instructionContent");
     const toggleButton = document.getElementById("toggleInstructions");
 
-    // Toggle the 'open' class to expand content.
+    // Toggles the 'open' class to expand its content.
     instructionContent.classList.toggle("open");
     toggleButton.classList.toggle("open");
-    */
+    
 });
 
 // Initializes the leaderboard display when the page loads.
@@ -30,7 +30,7 @@ document.getElementById('copyLogButton').addEventListener('click', copyLogToClip
 
 
 //To collapse instructions.
-/*
+
 function toggleInstructions() {
     const instructionContent = document.getElementById("instructionContent");
     const toggleButton = document.getElementById("toggleInstructions");
@@ -45,7 +45,7 @@ function toggleInstructions() {
         instructionContent.style.maxHeight = "0";
     }
 }
-*/
+
 // Game state.
 let playerPosition = "C1";
 let keyPosition = "A1";
