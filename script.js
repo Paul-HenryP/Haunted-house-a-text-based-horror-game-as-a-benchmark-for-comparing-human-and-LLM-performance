@@ -172,7 +172,8 @@ function updateLeaderboardDisplay() {
     });
 }
 
-// Moves player to the specified room code.
+// Moves player to the specified room code. (Old function)
+/*
 function movePlayer(targetRoom) {
     const validRooms = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"];
 
@@ -191,6 +192,7 @@ function movePlayer(targetRoom) {
         displayMessage("Invalid room code. Please enter a valid room code (up, down, left or right). "); //old, consider removal.
     }
 }
+*/
 
 // Checks current room status.
 function checkRoom() {
