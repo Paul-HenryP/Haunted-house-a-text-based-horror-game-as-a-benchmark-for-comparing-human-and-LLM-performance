@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("toggleInstructions");
 
     // Toggles the 'open' class to expand its content.
-    instructionContent.classList.toggle("open");
-    toggleButton.classList.toggle("open");
+    /*instructionContent.classList.toggle("open");
+    toggleButton.classList.toggle("open");*/
     
 });
 
