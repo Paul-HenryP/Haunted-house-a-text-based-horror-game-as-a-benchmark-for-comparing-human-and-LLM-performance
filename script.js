@@ -350,7 +350,7 @@ function endGame(message) {
         updateLeaderboardDisplay();
     }
 
-    openMovesLogModal();
+    // openMovesLogModal(); //For the time being we don't need to see the move logs.
 }
 
 var modal = document.getElementById('movesLogModal');
