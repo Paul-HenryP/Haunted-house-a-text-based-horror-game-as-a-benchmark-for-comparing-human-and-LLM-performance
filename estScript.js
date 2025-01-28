@@ -334,7 +334,7 @@ function endGame(message) {
         updateLeaderboardDisplay();
     }
     
-    openMovesLogModal();
+    // openMovesLogModal();
 }
 
 var modal = document.getElementById('movesLogModal');
